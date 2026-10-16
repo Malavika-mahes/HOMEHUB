@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Find a place that feels like yours with HomeHub.">
+  <meta name="homehub-api-base-url" content="http://127.0.0.1:8000">
+  <title>HomeHub — Find your kind of home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="property-image-manifest.js" defer></script>
+  <script src="api.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="Thanal.com HomeHub home">
+      <svg class="brand-logo" viewBox="0 0 230 106" aria-hidden="true" focusable="false">
+        <path class="brand-roof" d="M57 37 105 8l48 29" />
+        <path class="brand-roof-detail" d="M141 16V8h12v18" />
+        <rect class="brand-window" x="94" y="27" width="9" height="9" rx="1" />
+        <rect class="brand-window" x="107" y="27" width="9" height="9" rx="1" />
+        <rect class="brand-window" x="94" y="40" width="9" height="9" rx="1" />
+        <rect class="brand-window" x="107" y="40" width="9" height="9" rx="1" />
+        <path class="brand-leaf" d="M163 9c16 1 23 12 19 28-14-3-23-12-19-28Zm2 25c7-7 11-12 15-19" />
+        <text class="brand-script" x="8" y="78">Thanal</text>
+        <text class="brand-domain" x="174" y="76">.com</text>
+        <text class="brand-tagline" x="16" y="102">Buy • Sell • Find Your Home</text>
+      </svg>
+    </a>
+
+    <nav class="main-navigation" id="main-navigation" aria-label="Main navigation">
+      <a href="#home" class="is-current" aria-current="page">Home</a>
+      <a href="#/buy">Buy</a>
+      <a href="#/rent">Rent</a>
+      <a href="#/sell">Sell</a>
+      <a href="#about">About</a>
+      <a href="#footer">Contact</a>
+      <a href="#/map">Map</a>
+      <button class="nav-icon-link header-search-button" id="header-search-button" type="button" aria-label="Focus property search" title="Search properties">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
+      </button>
+      <a class="nav-icon-link wishlist-link" href="#/wishlist" aria-label="Wishlist and saved properties" title="Wishlist and saved properties">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.8c0 4.4-8.8 10-8.8 10S3.2 13.2 3.2 8.8a4.6 4.6 0 0 1 8.8-1.7 4.6 4.6 0 0 1 8.8 1.7Z"/></svg>
+      </a>
+      <a class="nav-icon-link account-link" href="#/login" aria-label="User login and dashboard" title="User login and dashboard">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M5.2 20c.6-3.3 3.2-5.2 6.8-5.2s6.2 1.9 6.8 5.2"/></svg>
+      </a>
+      <details class="nav-more">
+        <summary>More</summary>
+        <div class="nav-more-menu">
+          <a href="#/saved-searches">Saved searches</a>
+          <a href="#/compare">Compare properties</a>
+          <a href="#/admin/login">Admin dashboard</a>
+          <a href="#/analytics">Analytics</a>
+        </div>
+      </details>
+    </nav>
+
+    <a class="nav-icon-link mobile-wishlist-link" href="#/wishlist" aria-label="Wishlist and saved properties" title="Wishlist and saved properties">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.8c0 4.4-8.8 10-8.8 10S3.2 13.2 3.2 8.8a4.6 4.6 0 0 1 8.8-1.7 4.6 4.6 0 0 1 8.8 1.7Z"/></svg>
+    </a>
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="main-navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main id="main-content">
+    <div id="home-page">
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="hero-art" aria-hidden="true">
+        <img
+          class="hero-image"
+          src="assets/frontend%20design.jpg"
+          alt=""
+        >
+      </div>
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-rule" aria-hidden="true"></span>YOUR DREAM HOME AWAITS</p>
+        <h1 id="hero-title">Find Your<br><em>Dream Home</em></h1>
+        <p class="hero-intro">More than just a house,<br>it’s a place to belong.</p>
+      </div>
+
+      <section class="search-section" aria-label="Search for properties">
+        <form class="search-panel" id="search-form">
+          <div class="hero-searchbar">
+            <svg class="hero-search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
+            <label class="visually-hidden" for="location-search">Search by city or neighbourhood</label>
+            <input id="location-search" name="location" type="search" list="home-location-options" placeholder="Search for your dream home...">
+            <datalist id="home-location-options"></datalist>
+            <button class="search-button" type="submit" aria-label="Search homes">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <nav class="hero-quick-links" aria-label="Quick links">
+        <a class="hero-quick-link" href="#/listings" data-purpose-link="Buy">
+          <svg class="quick-link-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="m3 14 13-10 13 10M7 12v16h18V12M12 28v-9h8v9"/></svg>
+          <span class="quick-link-copy"><strong>Buy</strong><small>Find your perfect home</small></span>
+        </a>
+        <span class="hero-quick-link hero-quick-label">
+          <svg class="quick-link-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 14.5 16 7l9 7.5V27H7z"/><path d="M12 27v-8h8v8M11 11l5-4 5 4"/></svg>
+          <span class="quick-link-copy"><strong>Rent</strong><small>Find a place to live</small></span>
+        </span>
+        <a class="hero-quick-link" href="#/sell">
+          <svg class="quick-link-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="m4 12 7-7 6 3 4-3 7 7-5 5-3-2-4 4-3-2-3 2-6-7Z"/><path d="m9 17 4 4m4-2 4 4m-11-2 3 3m14-10 3 4-8 8-3-3"/></svg>
+          <span class="quick-link-copy"><strong>Sell</strong><small>Get the best value</small></span>
+        </a>
+        <a class="hero-quick-link" href="#/listings">
+          <svg class="quick-link-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M26 13c0 7-10 16-10 16S6 20 6 13a10 10 0 1 1 20 0Z"/><circle cx="16" cy="13" r="3.2"/></svg>
+          <span class="quick-link-copy"><strong>Explore</strong><small>Across Kerala &amp; Beyond</small></span>
+        </a>
+      </nav>
+    </section>
+
+    <section class="popular-areas page-section" aria-labelledby="popular-areas-title">
+      <div class="popular-area-heading">
+        <h2 id="popular-areas-title">Popular Areas</h2>
+        <span>Search by district. Kerala listings are not yet in the sample data.</span>
+      </div>
+      <div class="popular-area-list">
+        <span class="popular-area">Thiruvananthapuram</span>
+        <span class="popular-area">Kollam</span>
+        <span class="popular-area">Pathanamthitta</span>
+        <span class="popular-area">Alappuzha</span>
+        <span class="popular-area">Kottayam</span>
+        <span class="popular-area">Idukki</span>
+        <span class="popular-area">Ernakulam</span>
+        <span class="popular-area">Thrissur</span>
+        <span class="popular-area">Palakkad</span>
+        <span class="popular-area">Malappuram</span>
+        <span class="popular-area">Kozhikode</span>
+        <span class="popular-area">Wayanad</span>
+        <span class="popular-area">Kannur</span>
+        <span class="popular-area">Kasaragod</span>
+      </div>
+    </section>
+
+    <section class="category-section page-section" id="categories" aria-labelledby="category-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">A place for every kind of beginning</p>
+          <h2 id="category-title">Explore by type</h2>
+          <p class="section-intro">Find what fits your story</p>
+        </div>
+        <button class="section-link" type="button" id="view-all-categories">View all <span aria-hidden="true">→</span></button>
+      </div>
+
+      <div class="category-grid" role="group" aria-label="Explore homes by type">
+        <button class="category-card" type="button" data-category="Apartment" aria-pressed="false">
+          <span class="category-illustration" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M10 42V12l14-6 14 6v30M18 16h4m5 0h4M18 23h4m5 0h4M18 30h4m5 0h4M21 42V35h6v7M6 42h36"/></svg></span>
+          <span class="category-name">Apartments</span><span class="category-arrow" aria-hidden="true">→</span>
+        </button>
+        <button class="category-card" type="button" data-category="Independent House" aria-pressed="false">
+          <span class="category-illustration" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="m5 22 19-15 19 15M10 20v22h28V20M19 42V28h10v14M16 23h4m8 0h4M5 42h38"/></svg></span>
+          <span class="category-name">Independent Houses</span><span class="category-arrow" aria-hidden="true">→</span>
+        </button>
+        <button class="category-card" type="button" data-category="Villa" aria-pressed="false">
+          <span class="category-illustration" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M5 23 24 9l19 14M10 20v22h28V20M20 42V28h8v14M16 24h4m8 0h4M7 18l-2-5m2 5 5-3m31 3 2-5m-2 5-5-3"/></svg></span>
+          <span class="category-name">Villas</span><span class="category-arrow" aria-hidden="true">→</span>
+        </button>
+        <button class="category-card" type="button" data-category="Plot" aria-pressed="false">
+          <span class="category-illustration" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="m8 39 5-26 29 7-5 24-29-5ZM13 13l8 6m-8-6-5 4m34 3-7 4m-2 16 9-4M19 33l5-7 5 7m-8 0h6"/></svg></span>
+          <span class="category-name">Plots</span><span class="category-arrow" aria-hidden="true">→</span>
+        </button>
+        <button class="category-card" type="button" data-category="PG & Rental" aria-pressed="false">
+          <span class="category-illustration" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M7 42V17h34v25M7 23h34M12 17V8h24v9M14 30h7v7h-7zm13 0h7v7h-7zM4 42h40"/></svg></span>
+          <span class="category-name">PG &amp; Rental</span><span class="category-arrow" aria-hidden="true">→</span>
+        </button>
+        <button class="category-card" type="button" data-category="Studio" aria-pressed="false">
+          <span class="category-illustration" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M8 42V8h32v34M8 15h32M14 21h6v6h-6zm14 0h6v6h-6zm-14 12h6v6h-6zm14 0h6v6h-6zM4 42h40"/></svg></span>
+          <span class="category-name">Studios</span><span class="category-arrow" aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="homes-section featured-section page-section" id="homes" aria-labelledby="homes-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">A few lovely places</p>
+          <h2 id="homes-title">Featured homes</h2>
+          <p class="section-intro">Live backend listings appear here when the API is available; sample homes fill in when it is offline.</p>
+        </div>
+        <button class="section-link" type="button" id="view-all-homes">View all <span aria-hidden="true">→</span></button>
+      </div>
+      <div class="listing-count" id="listing-count" aria-live="polite"></div>
+      <div class="property-grid" id="property-grid" aria-live="polite"></div>
+      <p class="empty-state" id="empty-state" hidden>No homes match those filters just yet. Try a different search.</p>
+    </section>
+
+    <section class="how-section" id="how-it-works">
+      <div class="how-inner">
+        <div class="how-heading">
+          <p class="eyebrow">A little less searching, a little more settling</p>
+          <h2>Your next place,<br><em>made simpler.</em></h2>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <span class="step-number">01</span>
+            <h3>Tell us what feels right</h3>
+            <p>Choose a neighbourhood, a home type, and a budget that works for you.</p>
+          </article>
+          <article class="step">
+            <span class="step-number">02</span>
+            <h3>Explore at your pace</h3>
+            <p>Browse bright, welcoming spaces and get to know the details that matter.</p>
+          </article>
+          <article class="step">
+            <span class="step-number">03</span>
+            <h3>Picture yourself home</h3>
+            <p>When a place feels like yours, reach out and start your next chapter.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section page-section" id="about">
+      <span class="about-spark" aria-hidden="true">✳</span>
+      <p class="eyebrow">The HomeHub feeling</p>
+      <h2>Home is more than<br>four walls. <em>We get it.</em></h2>
+      <p>We believe finding a home should feel hopeful, not overwhelming. HomeHub brings lovely spaces and good beginnings a little closer together.</p>
+    </section>
+    </div>
+    <section id="page-view" class="app-page page-section" aria-live="polite" hidden></section>
+  </main>
+
+  <footer class="site-footer" id="footer">
+    <div class="footer-top">
+      <div class="footer-brand-block">
+        <a class="brand brand-light" href="#home" aria-label="Thanal.com HomeHub home">
+          <svg class="brand-logo" viewBox="0 0 230 106" aria-hidden="true" focusable="false">
+            <path class="brand-roof" d="M57 37 105 8l48 29" />
+            <path class="brand-roof-detail" d="M141 16V8h12v18" />
+            <rect class="brand-window" x="94" y="27" width="9" height="9" rx="1" />
+            <rect class="brand-window" x="107" y="27" width="9" height="9" rx="1" />
+            <rect class="brand-window" x="94" y="40" width="9" height="9" rx="1" />
+            <rect class="brand-window" x="107" y="40" width="9" height="9" rx="1" />
+            <path class="brand-leaf" d="M163 9c16 1 23 12 19 28-14-3-23-12-19-28Zm2 25c7-7 11-12 15-19" />
+            <text class="brand-script" x="8" y="78">Thanal</text>
+            <text class="brand-domain" x="174" y="76">.com</text>
+            <text class="brand-tagline" x="16" y="102">Buy • Sell • Find Your Home</text>
+          </svg>
+        </a>
+        <p>Good homes. Good beginnings.<br>Here's to finding yours.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <h2>Explore</h2>
+          <a href="#/listings">Find a home</a>
+          <a href="#/map">Map explorer</a>
+          <a href="#/wishlist">Wishlist</a>
+          <a href="#how-it-works">How it works</a>
+        </div>
+        <div>
+          <h2>HomeHub</h2>
+          <a href="#about">Our story</a>
+          <a href="mailto:hello@homehub.example">Contact us</a>
+        </div>
+      </div>
+      <a class="back-to-top" href="#home">Back to top <span aria-hidden="true">↑</span></a>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 HomeHub. Made for finding your place.</span>
+      <span>Thoughtfully home-grown <span class="footer-heart" aria-hidden="true">♥</span></span>
+    </div>
+  </footer>
+
+  <div class="homehub-chat">
+    <section class="chat-window" id="homehub-chat-window" aria-labelledby="chat-title" aria-hidden="true" hidden>
+      <header class="chat-header">
+        <span class="chat-avatar" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H11l-5 4v-4.2A2.5 2.5 0 0 1 4 13.5z"/><path d="M8 8h8M8 11.5h5"/></svg>
+        </span>
+        <span class="chat-heading"><strong id="chat-title">HomeHub Assistant</strong><small>Here to help you explore</small></span>
+        <button class="chat-close" id="chat-close" type="button" aria-label="Close chat">×</button>
+      </header>
+      <div class="chat-transcript" id="chat-transcript" role="log" aria-live="polite" aria-relevant="additions text">
+        <div class="chat-message assistant-message">
+          <p>Hi! I can help you explore our sample homes, ask a question, or request a visit. I can’t check live availability.</p>
+        </div>
+      </div>
+      <div class="chat-replies" id="chat-quick-replies" aria-label="Quick replies">
+        <button type="button" data-chat-intent="buy">Find properties to buy</button>
+        <button type="button" data-chat-intent="rent">Find properties to rent</button>
+        <button type="button" data-chat-intent="ask">Ask about a property</button>
+        <button type="button" data-chat-intent="visit">Schedule a visit</button>
+        <button type="button" data-chat-intent="enquiry">Submit an enquiry</button>
+      </div>
+      <div class="chat-replies chat-step-replies" id="chat-step-replies" aria-label="Conversation choices" hidden></div>
+      <p class="chat-storage-note">Demo only: enquiry and visit details are saved in this browser, not sent to an owner or stored in the database.</p>
+      <form class="chat-composer" id="chat-form">
+        <label class="visually-hidden" id="chat-input-label" for="chat-input">Your message</label>
+        <input id="chat-input" name="message" type="text" placeholder="Type a message…" autocomplete="off">
+        <button type="submit" aria-label="Send message">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 18-8-8 18-2.5-7.5L3 11Z"/><path d="m10.5 13.5 4-4"/></svg>
+        </button>
+      </form>
+    </section>
+    <button class="chat-launcher" id="chat-launcher" type="button" aria-label="Open HomeHub Assistant" aria-controls="homehub-chat-window" aria-expanded="false">
+      <svg class="chat-launch-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H11l-5 4v-4.2A2.5 2.5 0 0 1 4 13.5z"/><path d="M8 8h8M8 11.5h5"/></svg>
+      <span>Chat with us</span>
+    </button>
+  </div>
+
+  <dialog class="property-dialog" id="property-dialog" aria-labelledby="dialog-title">
+    <button class="dialog-close" id="dialog-close" type="button" aria-label="Close property details">×</button>
+    <div id="dialog-content"></div>
+  </dialog>
+</body>
+</html>
